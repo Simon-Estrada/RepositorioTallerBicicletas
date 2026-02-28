@@ -136,7 +136,7 @@ public class Taller {
     public boolean eliminarMecanico(String id) {
         Mecanico mecanico = buscarMecanico(id);
         if(mecanico != null) {
-            mecanico.remove(mecanico);
+            mecanicos.remove(mecanico);
             return true;
         }
         return false;

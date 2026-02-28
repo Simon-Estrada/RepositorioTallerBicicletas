@@ -62,11 +62,7 @@ public class BicicletaViewController {
         actualizarTabla();
     }
 
-    @FXML
-    void onHistorial() {
-        String serial = txtSerial.getText();
-        lblMensaje.setText("Historial de: " + serial);
-    }
+
 
     @FXML
     void onVolver() {
