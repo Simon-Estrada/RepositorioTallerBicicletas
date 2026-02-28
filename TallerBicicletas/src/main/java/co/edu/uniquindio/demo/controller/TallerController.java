@@ -64,11 +64,32 @@ public class TallerController {
     }
 
     //Logica de Servicios
-    public void crearServicio(String id, LocalDate fechaIngreso, LocalTime hora,
-                              Bicicleta bicicletaAtendida, Mecanico mecanicoResponsable,
-                              String motivo, String diagnostico, String trabajoRealizado, double costoTotal) {
-        Servicio servicio = new Servicio(id, fechaIngreso, hora, Bicicleta, Mecanico, motivo, diagnostico, trabajoRealizado, costoTotal);
-        taller.crearServicio(servicio);
+    public Servicio crearServicio(String id, LocalDate fecha, String idBicicleta,
+                                  String idMecanico, String motivo, String diagnostico, String trabajoRealizado) {
+        Bicicleta bicicleta = taller.buscarBicicleta(idBicicleta);
+        Mecanico mecanico = taller.buscarMecanico(idMecanico);
+
+        if(bicicleta != null && mecanico != null) {
+            Servicio servicio = new Servicio(id, fecha, LocalTime.now(),
+                    bicicleta, mecanico, motivo, diagnostico, trabajoRealizado, 0.0);
+            taller.crearServicio(servicio);
+            return servicio;
+        }
+        return null;
+    }
+    public void agregarRepuestoAServicio(String idServicio, Repuesto repuesto) {
+        Servicio servicio = taller.buscarServicio(idServicio);
+        if(servicio != null) {
+            servicio.agregarRepuesto(repuesto);
+        }
+    }
+
+    public double calcularCostoServicio(String idServicio) {
+        Servicio servicio = taller.buscarServicio(idServicio);
+        if(servicio != null) {
+            return servicio.calcularCosto();
+        }
+        return 0.0;
     }
 
     public Servicio buscarServicio(String id) {
