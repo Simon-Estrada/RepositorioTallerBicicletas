@@ -4,6 +4,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Taller {
+
+    private static Taller instancia;
+
     private String nombreCompleto;
     private String telefono;
     private String direccion;
@@ -13,6 +16,28 @@ public class Taller {
     private List<Servicio> servicios ;
     private List<Repuesto> repuestos ;
     private List<Proveedor> proveedores ;
+
+    public Taller() {
+        this.nombreCompleto = "";
+        this.telefono = "";
+        this.direccion = "";
+        this.clientes = new ArrayList<>();
+        this.servicios = new ArrayList<>();
+        this.bicicletas = new ArrayList<>();
+        this.mecanicos = new ArrayList<>();
+        this.proveedores = new ArrayList<>();
+        this.repuestos = new ArrayList<>();
+
+    }
+
+    public static Taller getInstancia() {
+        if (instancia == null) {
+            instancia = new Taller();
+        }
+        return instancia;
+    }
+
+
 
     public Taller(String nombreCompleto, String direccion, String telefono) {
         this.nombreCompleto = nombreCompleto;
@@ -72,6 +97,17 @@ public class Taller {
 
     public List<Proveedor> getProveedores() {
         return proveedores;
+    }
+    public void agregarBicicleta(Bicicleta bicicleta){
+        bicicleta.add(bicicleta);
+    }
+    public boolean eliminarBicicleta(String numeroSerial) {
+        for(Bicicleta b :bicicletas){
+            if (b.getNumeroSerial().equals(numeroSerial)) {
+                bicicletas.remove(b);
+            }
+        }
+        return true;
     }
 
     public void agregarCliente(Cliente cliente){
