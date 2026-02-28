@@ -102,20 +102,24 @@ public class Taller {
         bicicleta.add(bicicleta);
     }
     public boolean eliminarBicicleta(String numeroSerial) {
-        for(Bicicleta b :bicicletas){
-            if (b.getNumeroSerial().equals(numeroSerial)) {
-                bicicletas.remove(b);
-            }
+        Bicicleta bicicleta = buscarBicicleta(numeroSerial);
+        if(bicicleta != null) {
+            clientes.remove(bicicleta);
+            return true;
         }
-        return true;
+        return false;
     }
 
     public void agregarCliente(Cliente cliente){
         cliente.add(cliente);
     }
-    public boolean eliminarCliente(Cliente cliente){
-        cliente.remove(cliente);
-        return true;
+    public boolean eliminarCliente(String id) {
+        Cliente cliente = buscarCliente(id);
+        if(cliente != null) {
+            clientes.remove(cliente);
+            return true;
+        }
+        return false;
     }
     public Cliente buscarCliente(String id){
         for(Cliente cliente: clientes){
@@ -128,9 +132,13 @@ public class Taller {
     public void agregarMecanico(Mecanico mecanico){
         mecanico.add(mecanico);
     }
-    public boolean eliminarMecanico(Mecanico mecanico){
-        mecanico.remove(mecanico);
-        return true;
+    public boolean eliminarMecanico(String id) {
+        Mecanico mecanico = buscarMecanico(id);
+        if(mecanico != null) {
+            mecanico.remove(mecanico);
+            return true;
+        }
+        return false;
     }
     public Mecanico buscarMecanico(String id){
         for(Mecanico mecanico: mecanicos){

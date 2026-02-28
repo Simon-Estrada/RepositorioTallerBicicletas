@@ -12,7 +12,7 @@ public class InicioviewController {
 
     @FXML
     void onEntrar() {
-        App.openOpcionesPrograma();
+        app.openOpcionesPrograma();
     }
     public void setApp(App app){
         this.app = app;

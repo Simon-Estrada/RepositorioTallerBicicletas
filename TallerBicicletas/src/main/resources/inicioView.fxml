@@ -21,7 +21,7 @@
                <children>
                   <ImageView fitHeight="180.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@co/edu/uniquindio/demo/freehand-doodle-drawing-of-a-bicycle-free-png.png" />
+                        <Image url="@co/edu/uniquindio/demo/recursospng/freehand-doodle-drawing-of-a-bicycle-free-png.png" />
                      </image>
                   </ImageView>
                </children>

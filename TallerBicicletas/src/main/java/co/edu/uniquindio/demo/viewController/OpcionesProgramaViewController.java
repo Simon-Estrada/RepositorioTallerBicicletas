@@ -30,27 +30,36 @@ public class OpcionesProgramaViewController {
 
 
     @FXML
-    void onBicicletas(ActionEvent event) {
+    void onBicicletas() {
+        app.openCRUDBicicletas();
 
     }
 
     @FXML
-    void onClientes(ActionEvent event) {
+    void onClientes() {
+        app.openCRUDClientes();
 
     }
 
     @FXML
-    void onMecanicos(ActionEvent event) {
+    void onMecanicos() {
+        app.openCRUDMecanicos();
 
     }
 
     @FXML
     void onRepuestos(ActionEvent event) {
+        app.openCRUDRepuestos();
 
     }
 
     @FXML
     void onServicios(ActionEvent event) {
+        app.openServiciosVista();
+
+    }
+    @FXML
+    void initialize(){
 
     }
 
