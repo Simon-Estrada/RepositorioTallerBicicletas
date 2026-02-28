@@ -2,6 +2,7 @@ package co.edu.uniquindio.demo.model;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Taller {
 
@@ -135,7 +136,7 @@ public class Taller {
     public boolean eliminarMecanico(String id) {
         Mecanico mecanico = buscarMecanico(id);
         if(mecanico != null) {
-            mecanico.remove(mecanico);
+            mecanicos.remove(mecanico);
             return true;
         }
         return false;
