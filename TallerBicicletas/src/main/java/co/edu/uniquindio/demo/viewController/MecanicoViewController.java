@@ -1,12 +1,15 @@
 package co.edu.uniquindio.demo.viewController;
 
 import co.edu.uniquindio.demo.App;
+import co.edu.uniquindio.demo.model.Especialidad;
 import co.edu.uniquindio.demo.model.Mecanico;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+
+import static co.edu.uniquindio.demo.model.Especialidad.Ruedasllantas;
 
 public class MecanicoViewController {
     @FXML
@@ -25,7 +28,7 @@ public class MecanicoViewController {
     private Label lblMensaje;
 
     @FXML
-    private TextField txtEspecialidad;
+    private ComboBox<Especialidad> cmbEspecialidad;
 
     @FXML
     private TextField txtIdMecanico;
@@ -49,11 +52,13 @@ public class MecanicoViewController {
     private TableColumn<Mecanico, String> colTelefonoMecanico;
 
     @FXML
-    private TableColumn<Mecanico, String> colEspecialidad;
+    private TableColumn<Mecanico, Especialidad> colEspecialidad;
 
     private ObservableList<Mecanico> mecanicos;
 
 
+
+    //Inicializamos la tabla con un mecanico
     @FXML
     public void initialize() {
         colNombreMecanico.setCellValueFactory(new PropertyValueFactory<>("Nombre Mecanico"));
@@ -62,32 +67,33 @@ public class MecanicoViewController {
         colEspecialidad.setCellValueFactory(new PropertyValueFactory<>("Especialidad"));
 
         mecanicos = FXCollections.observableArrayList(
-                new Mecanico("Fabian Henao Sanchez" , "111456837230" , "30015104735" , "Neumaticos")
+                new Mecanico("Fabian Henao Sanchez" , "111456837230" , "30015104735" , Ruedasllantas)
         );
 
         tblMecanico.setItems(mecanicos);
     }
 
+    //Metodo para agregar los mecanicos al relenar los campos
     @FXML
     void onAgregar() {
 
             String nombreCompleto = txtNombreMecanico.getText();
             String id = txtIdMecanico.getText();
             String telefono = txtTelefonoMecanico.getText();
-            String especialidad = txtEspecialidad.getText();
+            String especialidad = cmbEspecialidad.getValue().toString();
 
-            if (nombreCompleto.isEmpty() || id.isEmpty() || telefono.isEmpty() || especialidad.isEmpty()) {
+            if (nombreCompleto.isEmpty() || id.isEmpty() || telefono.isEmpty()) {
                 showAlert("Campos vacíos", "Por favor, complete todos los campos");
                 return;
             }
 
-            Mecanico mecanico = new Mecanico(nombreCompleto, id, telefono, especialidad);
+            Mecanico mecanico = new Mecanico(nombreCompleto, id, telefono, Especialidad);
             mecanicos.add(mecanico);
 
             txtNombreMecanico.clear();
             txtIdMecanico.clear();
             txtTelefonoMecanico.clear();
-            txtEspecialidad.clear();
+
     }
 
     private void showAlert(String titulo, String mensaje) {

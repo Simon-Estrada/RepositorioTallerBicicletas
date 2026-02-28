@@ -40,15 +40,7 @@
                     </DropShadow>
                 </effect>
             </TextField>
-            <TextField fx:id="txtEspecialidad" promptText="Especialidad" style="-fx-background-color: #F0FBD6;">
-                <effect>
-                    <DropShadow>
-                        <color>
-                            <Color red="0.7686274647712708" green="0.7686274647712708" blue="0.7686274647712708" />
-                        </color>
-                    </DropShadow>
-                </effect>
-            </TextField>
+         <ComboBox fx:id="cmbEspecialidad" prefHeight="26.0" prefWidth="229.0" promptText="Especialidad" style="-fx-background-color: #F0FBD6;" />
 
 
             <HBox prefHeight="26.0" prefWidth="203.0" spacing="10">
