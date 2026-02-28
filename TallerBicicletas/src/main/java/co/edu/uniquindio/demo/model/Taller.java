@@ -2,6 +2,7 @@ package co.edu.uniquindio.demo.model;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Taller {
 

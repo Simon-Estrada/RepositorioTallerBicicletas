@@ -1,13 +1,25 @@
 package co.edu.uniquindio.demo.controller;
-import co.edu.uniquindio.demo.model.Taller;
-import co.edu.uniquindio.demo.model.Cliente;
+import co.edu.uniquindio.demo.model.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 //En este controllador vamos a guardar toda la logica del programa que se encuentra en taller
 
 public class TallerController {
     private Taller taller = Taller.getInstancia();
+    private static TallerController instancia;
+
+    private TallerController() {
+        this.taller = Taller.getInstancia();
+    }
+
+    public static TallerController getInstancia() {
+        if(instancia == null) {
+            instancia = new TallerController();
+        }
+        return instancia;
+    }
 
     //Aqui voy a hacer la logica de clientes
     public void agregarCliente(String nombreCompleto, String id, String telefono, String direccion) {
@@ -15,8 +27,8 @@ public class TallerController {
         taller.agregarCliente(cliente);
     }
 
-    public void eliminarCliente(String id) {
-        taller.eliminarCliente(id);
+    public boolean eliminarCliente(String id) {
+        return taller.eliminarCliente(id);
     }
 
     public Cliente buscarCliente(String id) {
@@ -38,9 +50,13 @@ public class TallerController {
     }
 
     //Logica para bicicleta
-    public void agregarBicicleta(String marca, Tipo tipo, String color, String numeroSerial, int ano, Cliente propietario) {
-        Bicicleta bicicleta = new Bicicleta(marca, tipo, color, numeroSerial, ano, propietario);
-        taller.agregarBicicleta(bicicleta);
+    public void agregarBicicleta(String marca, Tipo tipo, String color,
+                                 String serial, int ano, String idPropietario) {
+        Cliente propietario = taller.buscarCliente(idPropietario);
+        if(propietario != null) {
+            Bicicleta bicicleta = new Bicicleta(marca, tipo, color, serial, ano, propietario);
+            taller.agregarBicicleta(bicicleta);
+        }
     }
 
     public void eliminarBicicleta(String numeroSerial) {
@@ -48,8 +64,9 @@ public class TallerController {
     }
 
     //Logica de Servicios
-    public void crearServicio(String id, LocalDate fechaIngreso, LocalTime hora, bicicletaAtendida Bicicleta, mecanicoResponsable Mecanico
-            , String motivo, String diagnostico, String trabajoRealizado, double costoTotal) {
+    public void crearServicio(String id, LocalDate fechaIngreso, LocalTime hora,
+                              Bicicleta bicicletaAtendida, Mecanico mecanicoResponsable,
+                              String motivo, String diagnostico, String trabajoRealizado, double costoTotal) {
         Servicio servicio = new Servicio(id, fechaIngreso, hora, Bicicleta, Mecanico, motivo, diagnostico, trabajoRealizado, costoTotal);
         taller.crearServicio(servicio);
     }
@@ -70,6 +87,14 @@ public class TallerController {
         return taller.alertaStockBajo();
     }
 
+    public List<Cliente> getClientes() {
+        return taller.getClientes();
+    }
+
+
+    public Bicicleta getBicicletas() {
+        return taller.getBicicletas();
+    }
 }
 
 
