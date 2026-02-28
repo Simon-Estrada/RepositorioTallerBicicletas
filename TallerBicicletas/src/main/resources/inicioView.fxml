@@ -12,7 +12,6 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #E7F8BE;" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.demo.viewController.InicioviewController">
    <children>
       <HBox layoutY="110.0" prefHeight="138.0" prefWidth="600.0">
@@ -22,7 +21,7 @@
                <children>
                   <ImageView fitHeight="180.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@recursospng/freehand-doodle-drawing-of-a-bicycle-free-png.png" />
+                        <Image url="@co/edu/uniquindio/demo/recursospng/freehand-doodle-drawing-of-a-bicycle-free-png.png" />
                      </image>
                   </ImageView>
                </children>

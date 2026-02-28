@@ -1,5 +1,6 @@
 package co.edu.uniquindio.demo;
 
+import co.edu.uniquindio.demo.viewController.ClienteViewController;
 import co.edu.uniquindio.demo.viewController.InicioviewController;
 import co.edu.uniquindio.demo.viewController.OpcionesProgramaViewController;
 import javafx.application.Application;
@@ -11,7 +12,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class App extends Application{
-    private Stage inicioStage;
+    private static Stage inicioStage;
 
     public static void main(String[] args) {
         launch();
@@ -39,13 +40,29 @@ public class App extends Application{
             e.printStackTrace();
         }
     }
-    public static void openOpcionesPrograma() {
+    public void openOpcionesPrograma() {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(App.class.getResource("opcionesProgramaView.fxml"));
             AnchorPane rootLayout = (AnchorPane) loader.load();
             OpcionesProgramaViewController opcionesProgramaViewController = loader.getController();
             opcionesProgramaViewController.setApp(this);
+
+            Scene scene = new Scene(rootLayout);
+            inicioStage.setScene(scene);
+            inicioStage.show();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+    public void openCRUDClientes(){
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(App.class.getResource("crudCliente.fxml"));
+            AnchorPane rootLayout = (AnchorPane) loader.load();
+            ClienteViewController clienteViewController = loader.getController();
+            clienteViewController.setApp(this);
 
             Scene scene = new Scene(rootLayout);
             inicioStage.setScene(scene);
