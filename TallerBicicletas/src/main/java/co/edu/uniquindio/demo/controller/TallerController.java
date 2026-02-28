@@ -1,4 +1,5 @@
 package co.edu.uniquindio.demo.controller;
+import co.edu.uniquindio.demo.model.Mecanico;
 import co.edu.uniquindio.demo.model.Taller;
 import co.edu.uniquindio.demo.model.Cliente;
 
