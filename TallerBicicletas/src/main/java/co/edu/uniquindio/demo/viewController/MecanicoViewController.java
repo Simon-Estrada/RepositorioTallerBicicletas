@@ -105,6 +105,15 @@ public class MecanicoViewController {
 
     @FXML
     void onEliminar() {
+        String id = txtIdMecanico.getText();
+        boolean eliminado = tallerController.eliminarCliente(id);
+
+        if (eliminado) {
+            lblMensaje.setText("Mecanico eliminado");
+            actualizarTabla();
+        } else {
+            lblMensaje.setText("Mecanico no encontrado");
+        }
 
     }
 
