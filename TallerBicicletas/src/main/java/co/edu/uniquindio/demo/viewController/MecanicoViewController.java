@@ -1,6 +1,7 @@
 package co.edu.uniquindio.demo.viewController;
 
 import co.edu.uniquindio.demo.App;
+import co.edu.uniquindio.demo.controller.TallerController;
 import co.edu.uniquindio.demo.model.Especialidad;
 import co.edu.uniquindio.demo.model.Mecanico;
 import javafx.collections.FXCollections;
@@ -55,6 +56,8 @@ public class MecanicoViewController {
     private TableColumn<Mecanico, Especialidad> colEspecialidad;
 
     private ObservableList<Mecanico> mecanicos;
+
+    private TallerController tallerController = TallerController.getInstancia();
 
 
 
@@ -127,6 +130,12 @@ public class MecanicoViewController {
     void onVolver() {
 
     }
+
+    private void actualizarTabla() {
+        tblMecanico.getItems().clear();
+        tblMecanico.getItems().addAll(tallerController.getMecanicos());
+    }
+
     public void setApp(App app) {
     }
 }

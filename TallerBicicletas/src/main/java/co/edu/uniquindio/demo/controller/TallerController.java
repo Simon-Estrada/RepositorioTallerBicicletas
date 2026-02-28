@@ -91,6 +91,8 @@ public class TallerController {
         return taller.getClientes();
     }
 
+    public List<Mecanico> getMecanicos() { return taller.getMecanicos(); }
+
 
     public Bicicleta getBicicletas() {
         return taller.getBicicletas();
