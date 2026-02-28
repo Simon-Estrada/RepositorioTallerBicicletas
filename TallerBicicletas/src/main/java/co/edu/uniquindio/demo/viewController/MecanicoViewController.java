@@ -1,6 +1,7 @@
 package co.edu.uniquindio.demo.viewController;
 
 import co.edu.uniquindio.demo.App;
+import co.edu.uniquindio.demo.model.Especialidad;
 import co.edu.uniquindio.demo.model.Mecanico;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -52,6 +53,7 @@ public class MecanicoViewController {
     private TableColumn<Mecanico, String> colEspecialidad;
 
     private ObservableList<Mecanico> mecanicos;
+    private App app;
 
 
     @FXML
@@ -62,7 +64,7 @@ public class MecanicoViewController {
         colEspecialidad.setCellValueFactory(new PropertyValueFactory<>("Especialidad"));
 
         mecanicos = FXCollections.observableArrayList(
-                new Mecanico("Fabian Henao Sanchez" , "111456837230" , "30015104735" , "Neumaticos")
+                new Mecanico("Fabian Henao Sanchez" , "111456837230" , "30015104735" , Especialidad.FrenoTransmision)
         );
 
         tblMecanico.setItems(mecanicos);
@@ -89,8 +91,10 @@ public class MecanicoViewController {
 
     @FXML
     void onVolver() {
+        app.openOpcionesPrograma();
 
     }
+
     public void setApp(App app) {
     }
 }

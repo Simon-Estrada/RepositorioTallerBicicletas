@@ -1,9 +1,6 @@
 package co.edu.uniquindio.demo;
 
-import co.edu.uniquindio.demo.viewController.BicicletaViewController;
-import co.edu.uniquindio.demo.viewController.ClienteViewController;
-import co.edu.uniquindio.demo.viewController.InicioviewController;
-import co.edu.uniquindio.demo.viewController.OpcionesProgramaViewController;
+import co.edu.uniquindio.demo.viewController.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -80,6 +77,38 @@ public class App extends Application{
             AnchorPane rootLayout = (AnchorPane) loader.load();
             BicicletaViewController bicicletaViewController = loader.getController();
             bicicletaViewController.setApp(this);
+
+            Scene scene = new Scene(rootLayout);
+            inicioStage.setScene(scene);
+            inicioStage.show();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+    public void openCRUDMecanicos(){
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(App.class.getResource("crudMecanico.fxml"));
+            AnchorPane rootLayout = (AnchorPane) loader.load();
+            MecanicoViewController mecanicoViewController = loader.getController();
+            mecanicoViewController.setApp(this);
+
+            Scene scene = new Scene(rootLayout);
+            inicioStage.setScene(scene);
+            inicioStage.show();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+    public void openServiciosVista(){
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(App.class.getResource("crudServicio.fxml"));
+            AnchorPane rootLayout = (AnchorPane) loader.load();
+            ServicioViewController servicioViewController = loader.getController();
+            servicioViewController.setApp(this);
 
             Scene scene = new Scene(rootLayout);
             inicioStage.setScene(scene);
