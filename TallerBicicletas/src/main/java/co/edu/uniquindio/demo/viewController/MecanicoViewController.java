@@ -70,11 +70,32 @@ public class MecanicoViewController {
 
     @FXML
     void onAgregar() {
-        String nombreCompleto = txtNombreMecanico.getText();
-        String id = txtIdMecanico.getText();
-        String telefono = txtTelefonoMecanico.getText();
-        String especialidad = txtEspecialidad.getText();
 
+            String nombreCompleto = txtNombreMecanico.getText();
+            String id = txtIdMecanico.getText();
+            String telefono = txtTelefonoMecanico.getText();
+            String especialidad = txtEspecialidad.getText();
+
+            if (nombreCompleto.isEmpty() || id.isEmpty() || telefono.isEmpty() || especialidad.isEmpty()) {
+                showAlert("Campos vacíos", "Por favor, complete todos los campos");
+                return;
+            }
+
+            Mecanico mecanico = new Mecanico(nombreCompleto, id, telefono, especialidad);
+            mecanicos.add(mecanico);
+
+            txtNombreMecanico.clear();
+            txtIdMecanico.clear();
+            txtTelefonoMecanico.clear();
+            txtEspecialidad.clear();
+    }
+
+    private void showAlert(String titulo, String mensaje) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle(titulo);
+        alert.setHeaderText(null);
+        alert.setContentText(mensaje);
+        alert.showAndWait();
     }
 
     @FXML

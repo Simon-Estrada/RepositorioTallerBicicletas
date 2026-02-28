@@ -43,7 +43,6 @@ public class ClienteViewController {
         String telefono = txtTelefono.getText();
         String direccion = txtDireccion.getText();
 
-        tallerController
 
     }
 
