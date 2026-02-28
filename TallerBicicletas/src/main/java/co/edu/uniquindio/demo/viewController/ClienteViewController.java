@@ -1,65 +1,91 @@
 package co.edu.uniquindio.demo.viewController;
 
 import co.edu.uniquindio.demo.App;
+import co.edu.uniquindio.demo.controller.TallerController;
+import co.edu.uniquindio.demo.model.Cliente;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-
-
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 public class ClienteViewController {
-    @FXML
-    private Button btnAgregar;
+
+    @FXML private Button btnAgregar;
+    @FXML private Button btnBuscar;
+    @FXML private Button btnEliminar;
+    @FXML private Button btnVolver;
+    @FXML private Label lblMensaje;
+    @FXML private TextField txtDireccion;
+    @FXML private TextField txtId;
+    @FXML private TextField txtNombre;
+    @FXML private TextField txtTelefono;
+    @FXML private TableView<Cliente> tblClientes;
+    @FXML private TableColumn<Cliente, String> colId;
+    @FXML private TableColumn<Cliente, String> colNombre;
+    @FXML private TableColumn<Cliente, String> colTelefono;
+    @FXML private TableColumn<Cliente, String> colDireccion;
+
+    private App app;
+    private TallerController tallerController = TallerController.getInstancia();
 
     @FXML
-    private Button btnBuscar;
-
-    @FXML
-    private Button btnEliminar;
-
-    @FXML
-    private Button btnVolver;
-
-    @FXML
-    private Label lblMensaje;
-
-    @FXML
-    private TextField txtDireccion;
-
-    @FXML
-    private TextField txtId;
-
-    @FXML
-    private TextField txtNombre;
-
-    @FXML
-    private TextField txtTelefono;
+    void initialize() {
+        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colNombre.setCellValueFactory(new PropertyValueFactory<>("nombreCompleto"));
+        colTelefono.setCellValueFactory(new PropertyValueFactory<>("telefono"));
+        colDireccion.setCellValueFactory(new PropertyValueFactory<>("direccion"));
+    }
 
     @FXML
     void onAgregar() {
-        String nombreCompleto = txtNombre.getText();
         String id = txtId.getText();
+        String nombre = txtNombre.getText();
         String telefono = txtTelefono.getText();
         String direccion = txtDireccion.getText();
 
-
+        tallerController.agregarCliente(id, nombre, telefono, direccion);
+        lblMensaje.setText("Cliente agregado correctamente");
+        actualizarTabla();
     }
 
     @FXML
     void onBuscar() {
+        String id = txtId.getText();
+        Cliente cliente = tallerController.buscarCliente(id);
 
+        if(cliente != null) {
+            txtNombre.setText(cliente.getNombreCompleto());
+            txtTelefono.setText(cliente.getTelefono());
+            txtDireccion.setText(cliente.getDireccion());
+            lblMensaje.setText("Cliente encontrado");
+        } else {
+            lblMensaje.setText("Cliente no encontrado");
+        }
     }
 
     @FXML
     void onEliminar() {
+        String id = txtId.getText();
+        boolean eliminado = tallerController.eliminarCliente(id);
 
+        if(eliminado) {
+            lblMensaje.setText("Cliente eliminado correctamente");
+            actualizarTabla();
+        } else {
+            lblMensaje.setText("Cliente no encontrado");
+        }
     }
 
     @FXML
     void onVolver() {
-
+        app.openOpcionesPrograma();
     }
+
     public void setApp(App app) {
+        this.app = app;
+    }
+
+    private void actualizarTabla() {
+        tblClientes.getItems().clear();
+        tblClientes.getItems().addAll(tallerController.getClientes());
     }
 }
