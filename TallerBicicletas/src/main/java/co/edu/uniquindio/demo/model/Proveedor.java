@@ -4,18 +4,43 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Proveedor {
+    private static Proveedor instancia;
+    private List<Repuesto> repuestos = new ArrayList<>();
+
+    private Proveedor() {}
+
+    public static Proveedor getInstancia() {
+        if(instancia == null) {
+            instancia = new Proveedor();
+        }
+        return instancia;
+    }
 
     private String nombre;
     private String id;
     private String telefono;
-    private List<Repuesto> repuestos;
 
-    public Proveedor(String nombre, String id, String telefono) {
-        this.nombre = nombre;
-        this.id = id;
-        this.telefono = telefono;
-        this.repuestos = new ArrayList<>();
+    public void agregarRepuesto(Repuesto repuesto) {
+        repuestos.add(repuesto);
     }
+    public boolean eliminarRepuesto(String id) {
+        Repuesto repuesto = buscarRepuesto(id);
+        if(repuesto != null) {
+            repuestos.remove(repuesto);
+            return true;
+        }
+        return false;
+    }
+    public Repuesto buscarRepuesto(String id) {
+        for(Repuesto repuesto : repuestos) {
+            if(repuesto.getNombre().equals(id)) {
+                return repuesto;
+            }
+        }
+        return null;
+    }
+
+
 
     public String getNombre() { return nombre; }
     public void setNombre(String nombre) { this.nombre = nombre; }
@@ -28,4 +53,14 @@ public class Proveedor {
 
     public List<Repuesto> getRepuestos() { return repuestos; }
     public void setRepuestos(List<Repuesto> repuestos) { this.repuestos = repuestos; }
+
+    public List<Repuesto> alertaStockBajo(){
+        List<Repuesto> bajostock = new ArrayList<>();
+        for(Repuesto repuesto : repuestos){
+            if(repuesto.getStock() <= 3){
+                bajostock.add(repuesto);
+            }
+        }
+        return bajostock;
+    }
 }

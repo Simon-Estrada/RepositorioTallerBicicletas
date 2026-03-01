@@ -1,7 +1,9 @@
 package co.edu.uniquindio.demo.viewController;
 
 import co.edu.uniquindio.demo.App;
+import co.edu.uniquindio.demo.controller.ProveedorController;
 import co.edu.uniquindio.demo.controller.TallerController;
+import co.edu.uniquindio.demo.model.Proveedor;
 import co.edu.uniquindio.demo.model.Repuesto;
 import co.edu.uniquindio.demo.model.Servicio;
 import javafx.fxml.FXML;
@@ -31,9 +33,13 @@ public class ServicioViewController {
     @FXML private TableColumn<Servicio, String> colMecanico;
     @FXML private TableColumn<Servicio, Double> colCosto;
 
+
     private App app;
     private TallerController tallerController = TallerController.getInstancia();
+    private ProveedorController proveedorController = ProveedorController.getInstancia();
     private Servicio servicioActual;
+
+
 
     @FXML
     void initialize() {
@@ -43,7 +49,7 @@ public class ServicioViewController {
         colMecanico.setCellValueFactory(new PropertyValueFactory<>("mecanicoResponsable"));
         colCosto.setCellValueFactory(new PropertyValueFactory<>("costoTotal"));
 
-        cmbRepuestos.getItems().addAll(tallerController.getRepuestos());
+        cmbRepuestos.getItems().addAll(proveedorController.getRepuestos());
     }
 
     @FXML
@@ -56,7 +62,7 @@ public class ServicioViewController {
 
             List<Repuesto> stockBajo = tallerController.alertaStockBajo();
             if(!stockBajo.isEmpty()) {
-                lblAlertaStock.setText("⚠ Stock bajo en: " + stockBajo.get(0).getNombre());
+                lblAlertaStock.setText("Stock bajo en: " + stockBajo.get(0).getNombre());
             }
         } else {
             lblMensaje.setText("Primero crea el servicio");
