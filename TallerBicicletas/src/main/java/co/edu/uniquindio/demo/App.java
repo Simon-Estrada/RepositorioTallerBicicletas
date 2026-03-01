@@ -25,8 +25,8 @@ public class App extends Application{
     private void openViewPrincipal(){
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(App.class.getResource("co/edu/uniquindio/demo/inicioView.fxml"));
-            javafx.scene.layout.VBox rootLayout = (javafx.scene.layout.VBox) loader.load();
+            loader.setLocation(App.class.getResource("inicioView.fxml"));
+            AnchorPane rootLayout = (AnchorPane) loader.load();
             InicioviewController inicioviewController = loader.getController();
             inicioviewController.setApp(this);
 

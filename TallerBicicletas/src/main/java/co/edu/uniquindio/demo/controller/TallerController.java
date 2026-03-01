@@ -41,8 +41,9 @@ public class TallerController {
         taller.agregarMecanico(mecanico);
     }
 
-    public void eliminarMecanico(String id) {
+    public boolean eliminarMecanico(String id) {
         taller.eliminarMecanico(id);
+        return false;
     }
 
     public Mecanico buscarMecanico(String id) {
@@ -59,19 +60,20 @@ public class TallerController {
         }
     }
 
-    public void eliminarBicicleta(String numeroSerial) {
+    public boolean eliminarBicicleta(String numeroSerial) {
         taller.eliminarBicicleta(numeroSerial);
+        return false;
     }
 
     //Logica de Servicios
     public Servicio crearServicio(String id, LocalDate fecha, String idBicicleta,
-                                  String idMecanico, String motivo, String diagnostico, String trabajoRealizado) {
+                                  String idMecanico, String motivo, String diagnostico, Trabajo trabajoRealizado) {
         Bicicleta bicicleta = taller.buscarBicicleta(idBicicleta);
         Mecanico mecanico = taller.buscarMecanico(idMecanico);
 
         if(bicicleta != null && mecanico != null) {
             Servicio servicio = new Servicio(id, fecha, LocalTime.now(),
-                    bicicleta, mecanico, motivo, diagnostico, trabajoRealizado, 0.0);
+                    bicicleta, mecanico, motivo, diagnostico, trabajoRealizado);
             taller.crearServicio(servicio);
             return servicio;
         }
@@ -111,10 +113,17 @@ public class TallerController {
     public List<Cliente> getClientes() {
         return taller.getClientes();
     }
+    public List<Servicio> getServicios() {
+        return taller.getServicios();
+    }
 
 
     public List<Bicicleta> getBicicletas() {
         return taller.getBicicletas();
+    }
+
+    public List<Mecanico> getMecanicos() {
+        return taller.getMecanicos();
     }
 }
 

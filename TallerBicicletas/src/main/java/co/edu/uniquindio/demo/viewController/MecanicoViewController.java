@@ -1,6 +1,7 @@
 package co.edu.uniquindio.demo.viewController;
 
 import co.edu.uniquindio.demo.App;
+import co.edu.uniquindio.demo.controller.TallerController;
 import co.edu.uniquindio.demo.model.Especialidad;
 import co.edu.uniquindio.demo.model.Mecanico;
 import javafx.collections.FXCollections;
@@ -25,8 +26,7 @@ public class MecanicoViewController {
     @FXML
     private Label lblMensaje;
 
-    @FXML
-    private TextField txtEspecialidad;
+    @FXML private ComboBox<Especialidad> cmbEspecialidad;
 
     @FXML
     private TextField txtIdMecanico;
@@ -52,9 +52,9 @@ public class MecanicoViewController {
     @FXML
     private TableColumn<Mecanico, String> colEspecialidad;
 
-    private ObservableList<Mecanico> mecanicos;
+    private ObservableList<Mecanico> listaMecanicos = FXCollections.observableArrayList();
     private App app;
-
+    private TallerController tallerController = TallerController.getInstancia();
 
     @FXML
     public void initialize() {
@@ -62,30 +62,50 @@ public class MecanicoViewController {
         colIdMecanico.setCellValueFactory(new PropertyValueFactory<>("ID"));
         colTelefonoMecanico.setCellValueFactory(new PropertyValueFactory<>("Telefono Mecanico"));
         colEspecialidad.setCellValueFactory(new PropertyValueFactory<>("Especialidad"));
-
-        mecanicos = FXCollections.observableArrayList(
-                new Mecanico("Fabian Henao Sanchez" , "111456837230" , "30015104735" , Especialidad.FrenoTransmision)
-        );
-
-        tblMecanico.setItems(mecanicos);
+        tblMecanico.setItems(listaMecanicos);
+        cmbEspecialidad.getItems().addAll(Especialidad.values());
     }
 
     @FXML
     void onAgregar() {
-        String nombreCompleto = txtNombreMecanico.getText();
         String id = txtIdMecanico.getText();
+        String nombre = txtNombreMecanico.getText();
         String telefono = txtTelefonoMecanico.getText();
-        String especialidad = txtEspecialidad.getText();
+        Especialidad especialidad = cmbEspecialidad.getValue();
+
+        tallerController.agregarMecanico(id, nombre, telefono, especialidad);
+        lblMensaje.setText("Mecánico agregado correctamente");
+        actualizarTabla();
 
     }
 
     @FXML
     void onBuscar() {
+        String id = txtIdMecanico.getText();
+        Mecanico mecanico = tallerController.buscarMecanico(id);
+
+        if(mecanico != null) {
+            txtNombreMecanico.setText(mecanico.getNombreCompleto());
+            txtTelefonoMecanico.setText(mecanico.getTelefono());
+            cmbEspecialidad.setValue(mecanico.getEspecialidad());
+            lblMensaje.setText("Mecánico encontrado");
+        } else {
+            lblMensaje.setText("Mecánico no encontrado");
+        }
 
     }
 
     @FXML
     void onEliminar() {
+        String id = txtIdMecanico.getText();
+        boolean eliminado = tallerController.eliminarMecanico(id);
+
+        if(eliminado) {
+            lblMensaje.setText("Mecánico eliminado correctamente");
+            actualizarTabla();
+        } else {
+            lblMensaje.setText("Mecánico no encontrado");
+        }
 
     }
 
@@ -96,5 +116,10 @@ public class MecanicoViewController {
     }
 
     public void setApp(App app) {
+        this.app= app;
+    }
+    private void actualizarTabla() {
+        listaMecanicos.clear();
+        listaMecanicos.addAll(tallerController.getMecanicos());
     }
 }

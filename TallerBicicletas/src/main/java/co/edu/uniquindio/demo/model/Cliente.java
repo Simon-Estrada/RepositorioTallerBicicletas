@@ -15,6 +15,9 @@ public class Cliente extends Persona{
         this.direccion = direccion;
     }
 
-    public void add(Cliente cliente) {
+
+    @Override
+    public String toString() {
+        return getNombreCompleto();
     }
 }

@@ -100,19 +100,19 @@ public class Taller {
         return proveedores;
     }
     public void agregarBicicleta(Bicicleta bicicleta){
-        bicicleta.add(bicicleta);
+        bicicletas.add(bicicleta);
     }
     public boolean eliminarBicicleta(String numeroSerial) {
         Bicicleta bicicleta = buscarBicicleta(numeroSerial);
         if(bicicleta != null) {
-            clientes.remove(bicicleta);
+            bicicletas.remove(bicicleta);
             return true;
         }
         return false;
     }
 
     public void agregarCliente(Cliente cliente){
-        cliente.add(cliente);
+        clientes.add(cliente);
     }
     public boolean eliminarCliente(String id) {
         Cliente cliente = buscarCliente(id);
@@ -131,7 +131,7 @@ public class Taller {
         return null;
     }
     public void agregarMecanico(Mecanico mecanico){
-        mecanico.add(mecanico);
+        mecanicos.add(mecanico);
     }
     public boolean eliminarMecanico(String id) {
         Mecanico mecanico = buscarMecanico(id);
@@ -151,13 +151,14 @@ public class Taller {
     }
     public Bicicleta buscarBicicleta(String numeroSerial){
         for(Bicicleta bicicleta : bicicletas){
-            if(bicicleta.getNumeroSerial().equals(numeroSerial));
-            return bicicleta;
+            if(bicicleta.getNumeroSerial().equals(numeroSerial)) {
+                return bicicleta;
+            }
         }
         return null;
     }
     public void crearServicio(Servicio servicio){
-        servicio.add(servicio);
+        servicios.add(servicio);
     }
     public Servicio buscarServicio(String id){
         for(Servicio servicio: servicios){

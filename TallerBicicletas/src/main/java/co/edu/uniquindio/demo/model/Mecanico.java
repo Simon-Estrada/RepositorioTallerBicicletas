@@ -13,6 +13,5 @@ public class Mecanico extends Persona{
         return especialidad;
     }
 
-    public void add(Mecanico mecanico) {
-    }
+
 }
