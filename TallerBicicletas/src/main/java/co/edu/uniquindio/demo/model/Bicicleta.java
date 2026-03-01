@@ -2,13 +2,13 @@ package co.edu.uniquindio.demo.model;
 
 public class Bicicleta {
     private String marca;
-    private String tipo;
+    private Tipo tipo;
     private String color;        ;
     private String numeroSerial;
     private int año;
     private Cliente propietario;
 
-    public Bicicleta(String marca, String tipo, String color, String numeroSerial, int año, Cliente propietario) {
+    public Bicicleta(String marca, Tipo tipo, String color, String numeroSerial, int año, Cliente propietario) {
         this.marca = marca;
         this.tipo = tipo;
         this.color = color;
@@ -20,8 +20,8 @@ public class Bicicleta {
     public String getMarca() { return marca; }
     public void setMarca(String marca) { this.marca = marca; }
 
-    public String getTipo() { return tipo; }
-    public void setTipo(String tipo) {this.tipo = tipo; }
+    public Tipo getTipo() { return tipo; }
+
 
     public String getColor() {return color; }
     public void setColor(String color) {this.color = color; }
@@ -34,5 +34,8 @@ public class Bicicleta {
 
     public Cliente getPropietario() { return propietario; }
     public void setPropietario(Cliente propietario) { this.propietario = propietario; }
+
+    public void add(Bicicleta bicicleta) {
+    }
 }
 
