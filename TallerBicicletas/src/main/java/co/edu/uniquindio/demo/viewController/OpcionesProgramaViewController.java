@@ -48,20 +48,17 @@ public class OpcionesProgramaViewController {
     }
 
     @FXML
-    void onRepuestos(ActionEvent event) {
+    void onRepuestos() {
         app.openCRUDRepuestos();
 
     }
 
     @FXML
-    void onServicios(ActionEvent event) {
+    void onServicios() {
         app.openServiciosVista();
 
     }
-    @FXML
-    void initialize(){
 
-    }
 
 }
 

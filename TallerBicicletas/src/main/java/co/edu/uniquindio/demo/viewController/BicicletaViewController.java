@@ -4,6 +4,8 @@ import co.edu.uniquindio.demo.App;
 import co.edu.uniquindio.demo.controller.TallerController;
 import co.edu.uniquindio.demo.model.Bicicleta;
 import co.edu.uniquindio.demo.model.Tipo;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -27,7 +29,7 @@ public class BicicletaViewController {
 
     private App app;
     private TallerController tallerController = TallerController.getInstancia();
-
+    private ObservableList<Bicicleta> listaBicicletas = FXCollections.observableArrayList();
     @FXML
     void initialize() {
         cmbTipo.getItems().addAll(Tipo.values());
@@ -38,6 +40,7 @@ public class BicicletaViewController {
         colColor.setCellValueFactory(new PropertyValueFactory<>("color"));
         colAno.setCellValueFactory(new PropertyValueFactory<>("ano"));
         colPropietario.setCellValueFactory(new PropertyValueFactory<>("propietario"));
+        tblBicicletas.setItems(listaBicicletas);
     }
 
     @FXML
@@ -57,10 +60,16 @@ public class BicicletaViewController {
     @FXML
     void onEliminar() {
         String serial = txtSerial.getText();
-        tallerController.eliminarBicicleta(serial);
-        lblMensaje.setText("Bicicleta eliminada correctamente");
-        actualizarTabla();
+        boolean eliminado = tallerController.eliminarBicicleta(serial);
+
+        if(eliminado) {
+            lblMensaje.setText("Bicicleta eliminada correctamente");
+            actualizarTabla();
+        } else {
+            lblMensaje.setText("Bicicleta no encontrada");
+        }
     }
+
 
 
 
@@ -74,7 +83,8 @@ public class BicicletaViewController {
     }
 
     private void actualizarTabla() {
-        tblBicicletas.getItems().clear();
-        tblBicicletas.getItems().addAll(tallerController.getBicicletas());
+        listaBicicletas.clear();
+        listaBicicletas.addAll(tallerController.getBicicletas());
     }
+
 }

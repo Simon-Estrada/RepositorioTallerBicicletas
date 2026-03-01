@@ -3,6 +3,8 @@ package co.edu.uniquindio.demo.viewController;
 import co.edu.uniquindio.demo.App;
 import co.edu.uniquindio.demo.controller.TallerController;
 import co.edu.uniquindio.demo.model.Cliente;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -26,13 +28,14 @@ public class ClienteViewController {
 
     private App app;
     private TallerController tallerController = TallerController.getInstancia();
-
+    private ObservableList<Cliente> listaClientes = FXCollections.observableArrayList();
     @FXML
     void initialize() {
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colNombre.setCellValueFactory(new PropertyValueFactory<>("nombreCompleto"));
         colTelefono.setCellValueFactory(new PropertyValueFactory<>("telefono"));
         colDireccion.setCellValueFactory(new PropertyValueFactory<>("direccion"));
+        tblClientes.setItems(listaClientes);
     }
 
     @FXML
@@ -85,7 +88,7 @@ public class ClienteViewController {
     }
 
     private void actualizarTabla() {
-        tblClientes.getItems().clear();
-        tblClientes.getItems().addAll(tallerController.getClientes());
+        listaClientes.clear();
+        listaClientes.addAll(tallerController.getClientes());
     }
 }

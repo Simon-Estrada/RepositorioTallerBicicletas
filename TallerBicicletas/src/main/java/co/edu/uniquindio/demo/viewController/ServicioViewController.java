@@ -6,6 +6,7 @@ import co.edu.uniquindio.demo.controller.TallerController;
 import co.edu.uniquindio.demo.model.Proveedor;
 import co.edu.uniquindio.demo.model.Repuesto;
 import co.edu.uniquindio.demo.model.Servicio;
+import co.edu.uniquindio.demo.model.Trabajo;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -20,7 +21,7 @@ public class ServicioViewController {
     @FXML private TextField txtIdMecanico;
     @FXML private TextField txtMotivo;
     @FXML private TextField txtDiagnostico;
-    @FXML private TextField txtTrabajoRealizado;
+    @FXML private ComboBox<Trabajo> cmbTrabajoRealizado;
     @FXML private DatePicker dpFechaIngreso;
     @FXML private ComboBox<Repuesto> cmbRepuestos;
     @FXML private Label lblCosto;
@@ -50,6 +51,7 @@ public class ServicioViewController {
         colCosto.setCellValueFactory(new PropertyValueFactory<>("costoTotal"));
 
         cmbRepuestos.getItems().addAll(proveedorController.getRepuestos());
+        cmbTrabajoRealizado.getItems().addAll(Trabajo.values());
     }
 
     @FXML
@@ -60,7 +62,7 @@ public class ServicioViewController {
             lblCosto.setText("Costo Total: $" + servicioActual.calcularCosto());
 
 
-            List<Repuesto> stockBajo = tallerController.alertaStockBajo();
+            List<Repuesto> stockBajo = proveedorController.alertaStockBajo();
             if(!stockBajo.isEmpty()) {
                 lblAlertaStock.setText("Stock bajo en: " + stockBajo.get(0).getNombre());
             }
@@ -77,7 +79,7 @@ public class ServicioViewController {
         String idMecanico = txtIdMecanico.getText();
         String motivo = txtMotivo.getText();
         String diagnostico = txtDiagnostico.getText();
-        String trabajoRealizado = txtTrabajoRealizado.getText();
+        Trabajo trabajoRealizado = cmbTrabajoRealizado.getValue();
 
         servicioActual = tallerController.crearServicio(id, fecha, idBicicleta, idMecanico, motivo, diagnostico, trabajoRealizado);
 
@@ -96,7 +98,7 @@ public class ServicioViewController {
         if(servicio != null) {
             txtMotivo.setText(servicio.getMotivo());
             txtDiagnostico.setText(servicio.getDiagnostico());
-            txtTrabajoRealizado.setText(servicio.getTrabajoRealizado());
+            cmbTrabajoRealizado.setValue(servicio.getTrabajoRealizado());
             dpFechaIngreso.setValue(servicio.getFechaIngreso());
             lblCosto.setText("Costo Total: $" + servicio.getCostoTotal());
             lblMensaje.setText("Servicio encontrado");

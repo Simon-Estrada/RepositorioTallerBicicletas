@@ -19,7 +19,7 @@ public class ProveedorController {
     }
 
     public void agregarRepuesto(String nombre, int stock, double precio) {
-        Repuesto repuesto = new Repuesto(precio, stock, nombre);
+        Repuesto repuesto = new Repuesto(nombre, stock, precio);
         proveedor.agregarRepuesto(repuesto);
     }
     public List<Repuesto> alertaStockBajo() {

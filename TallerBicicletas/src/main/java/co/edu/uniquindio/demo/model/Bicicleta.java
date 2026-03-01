@@ -35,7 +35,6 @@ public class Bicicleta {
     public Cliente getPropietario() { return propietario; }
     public void setPropietario(Cliente propietario) { this.propietario = propietario; }
 
-    public void add(Bicicleta bicicleta) {
-    }
+
 }
 
