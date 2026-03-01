@@ -118,6 +118,22 @@ public class App extends Application{
             e.printStackTrace();
         }
     }
+    public void openCRUDRepuestos(){
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(App.class.getResource("crudRepuesto.fxml"));
+            AnchorPane rootLayout = (AnchorPane) loader.load();
+            RepuestoViewController repuestoViewController = loader.getController();
+            repuestoViewController.setApp(this);
+
+            Scene scene = new Scene(rootLayout);
+            inicioStage.setScene(scene);
+            inicioStage.show();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
 
 
 }
