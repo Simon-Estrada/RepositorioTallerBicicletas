@@ -58,12 +58,13 @@ public class MecanicoViewController {
 
     @FXML
     public void initialize() {
-        colNombreMecanico.setCellValueFactory(new PropertyValueFactory<>("Nombre Mecanico"));
-        colIdMecanico.setCellValueFactory(new PropertyValueFactory<>("ID"));
-        colTelefonoMecanico.setCellValueFactory(new PropertyValueFactory<>("Telefono Mecanico"));
-        colEspecialidad.setCellValueFactory(new PropertyValueFactory<>("Especialidad"));
+        colNombreMecanico.setCellValueFactory(new PropertyValueFactory<>("nombreCompleto"));
+        colIdMecanico.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colTelefonoMecanico.setCellValueFactory(new PropertyValueFactory<>("telefono"));
+        colEspecialidad.setCellValueFactory(new PropertyValueFactory<>("especialidad"));
         tblMecanico.setItems(listaMecanicos);
         cmbEspecialidad.getItems().addAll(Especialidad.values());
+        actualizarTabla();
     }
 
     @FXML
@@ -73,7 +74,7 @@ public class MecanicoViewController {
         String telefono = txtTelefonoMecanico.getText();
         Especialidad especialidad = cmbEspecialidad.getValue();
 
-        tallerController.agregarMecanico(id, nombre, telefono, especialidad);
+        tallerController.agregarMecanico( nombre,id, telefono, especialidad);
         lblMensaje.setText("Mecánico agregado correctamente");
         actualizarTabla();
 
@@ -97,16 +98,19 @@ public class MecanicoViewController {
 
     @FXML
     void onEliminar() {
-        String id = txtIdMecanico.getText();
-        boolean eliminado = tallerController.eliminarMecanico(id);
-
-        if(eliminado) {
-            lblMensaje.setText("Mecánico eliminado correctamente");
+        Mecanico mecanicoSleccionado = tblMecanico.getSelectionModel().getSelectedItem();
+        if(mecanicoSleccionado != null){
+            boolean eliminado = tallerController.eliminarMecanico(mecanicoSleccionado.getId());
+            if(eliminado){
+                lblMensaje.setText("Mecánico eliminado correctamente");
+                actualizarTabla();
+            }
+        } else{
+            String id = txtIdMecanico.getText();
+            boolean eliminado = tallerController.eliminarCliente(id);
+            lblMensaje.setText(eliminado ? "Cliente eliminado" : "Cliente no encontrado");
             actualizarTabla();
-        } else {
-            lblMensaje.setText("Mecánico no encontrado");
         }
-
     }
 
     @FXML

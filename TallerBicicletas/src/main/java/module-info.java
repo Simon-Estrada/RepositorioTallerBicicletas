@@ -6,5 +6,7 @@ module co.edu.uniquindio.demo {
 
     opens co.edu.uniquindio.demo to javafx.fxml;
     opens co.edu.uniquindio.demo.viewController to javafx.fxml;
+    opens co.edu.uniquindio.demo.model to javafx.base, javafx.fxml;
+    opens co.edu.uniquindio.demo.controller to javafx.fxml;
     exports co.edu.uniquindio.demo;
 }

@@ -34,7 +34,10 @@ public class Bicicleta {
 
     public Cliente getPropietario() { return propietario; }
     public void setPropietario(Cliente propietario) { this.propietario = propietario; }
-
+    @Override
+    public String toString() {
+        return numeroSerial;
+    }
 
 }
 
