@@ -1,4 +1,4 @@
 package co.edu.uniquindio.demo.model;
 
-public class Repuesto {
+public class Servicio {
 }
