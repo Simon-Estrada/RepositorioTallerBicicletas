@@ -3,6 +3,8 @@ package co.edu.uniquindio.demo.viewController;
 import co.edu.uniquindio.demo.App;
 import co.edu.uniquindio.demo.controller.ProveedorController;
 import co.edu.uniquindio.demo.model.Repuesto;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -23,12 +25,13 @@ public class RepuestoViewController {
 
     private App app;
     private ProveedorController proveedorController = ProveedorController.getInstancia();
-
+    private ObservableList<Repuesto> listaRepuestos = FXCollections.observableArrayList();
     @FXML
     void initialize() {
         colNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         colStock.setCellValueFactory(new PropertyValueFactory<>("stock"));
         colPrecio.setCellValueFactory(new PropertyValueFactory<>("precio"));
+        tblRepuestos.setItems(listaRepuestos);
         actualizarTabla();
     }
 
@@ -45,14 +48,19 @@ public class RepuestoViewController {
 
     @FXML
     void onEliminar() {
-        String nombre = txtNombre.getText();
-        boolean eliminado = proveedorController.eliminarRepuesto(nombre);
-
-        if(eliminado) {
-            lblMensaje.setText("Repuesto eliminado correctamente");
-            actualizarTabla();
-        } else {
-            lblMensaje.setText("Repuesto no encontrado");
+        Repuesto repuestoSeleccionado = tblRepuestos.getSelectionModel().getSelectedItem();
+        if(repuestoSeleccionado != null){
+            boolean eliminado = proveedorController.eliminarRepuesto(repuestoSeleccionado.getNombre());
+            if(eliminado){
+                lblMensaje.setText("Se elimino correctamente el repuesto :)");
+                actualizarTabla();
+            }
+            else{
+                String nombre = txtNombre.getText();
+                boolean elminado = proveedorController.eliminarRepuesto(nombre);
+                lblMensaje.setText(elminado ? "Repuesto eliminado": "Repuesto no existe");
+                actualizarTabla();
+            }
         }
     }
 
@@ -94,7 +102,7 @@ public class RepuestoViewController {
     }
 
     private void actualizarTabla() {
-        tblRepuestos.getItems().clear();
-        tblRepuestos.getItems().addAll(proveedorController.getRepuestos());
+        listaRepuestos.clear();
+        listaRepuestos.addAll(proveedorController.getRepuestos());
     }
 }

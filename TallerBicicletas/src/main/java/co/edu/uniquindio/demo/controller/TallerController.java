@@ -14,6 +14,7 @@ public class TallerController {
         this.taller = Taller.getInstancia();
     }
 
+
     public static TallerController getInstancia() {
         if(instancia == null) {
             instancia = new TallerController();
@@ -25,6 +26,7 @@ public class TallerController {
     public void agregarCliente(String nombreCompleto, String id, String telefono, String direccion) {
         Cliente cliente = new Cliente(nombreCompleto, id, telefono, direccion);
         taller.agregarCliente(cliente);
+        System.out.println("Clientes en lista: " + taller.getClientes().size());
     }
 
     public boolean eliminarCliente(String id) {
@@ -42,8 +44,7 @@ public class TallerController {
     }
 
     public boolean eliminarMecanico(String id) {
-        taller.eliminarMecanico(id);
-        return false;
+       return taller.eliminarMecanico(id);
     }
 
     public Mecanico buscarMecanico(String id) {
@@ -61,8 +62,7 @@ public class TallerController {
     }
 
     public boolean eliminarBicicleta(String numeroSerial) {
-        taller.eliminarBicicleta(numeroSerial);
-        return false;
+       return taller.eliminarBicicleta(numeroSerial);
     }
 
     //Logica de Servicios

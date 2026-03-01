@@ -3,10 +3,7 @@ package co.edu.uniquindio.demo.viewController;
 import co.edu.uniquindio.demo.App;
 import co.edu.uniquindio.demo.controller.ProveedorController;
 import co.edu.uniquindio.demo.controller.TallerController;
-import co.edu.uniquindio.demo.model.Proveedor;
-import co.edu.uniquindio.demo.model.Repuesto;
-import co.edu.uniquindio.demo.model.Servicio;
-import co.edu.uniquindio.demo.model.Trabajo;
+import co.edu.uniquindio.demo.model.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -17,8 +14,8 @@ import java.util.List;
 public class ServicioViewController {
 
     @FXML private TextField txtId;
-    @FXML private TextField txtIdBicicleta;
-    @FXML private TextField txtIdMecanico;
+    @FXML private ComboBox<Bicicleta> cmbBicicleta;
+    @FXML private ComboBox<Mecanico> cmbMecanico;
     @FXML private TextField txtMotivo;
     @FXML private TextField txtDiagnostico;
     @FXML private ComboBox<Trabajo> cmbTrabajoRealizado;
@@ -49,9 +46,11 @@ public class ServicioViewController {
         colBicicleta.setCellValueFactory(new PropertyValueFactory<>("bicicletaAtendida"));
         colMecanico.setCellValueFactory(new PropertyValueFactory<>("mecanicoResponsable"));
         colCosto.setCellValueFactory(new PropertyValueFactory<>("costoTotal"));
-
         cmbRepuestos.getItems().addAll(proveedorController.getRepuestos());
         cmbTrabajoRealizado.getItems().addAll(Trabajo.values());
+        cmbBicicleta.getItems().addAll(tallerController.getBicicletas());
+        cmbMecanico.getItems().addAll(tallerController.getMecanicos());
+        actualizarTabla();
     }
 
     @FXML
@@ -75,19 +74,22 @@ public class ServicioViewController {
     void onCrear() {
         String id = txtId.getText();
         LocalDate fecha = dpFechaIngreso.getValue();
-        String idBicicleta = txtIdBicicleta.getText();
-        String idMecanico = txtIdMecanico.getText();
+        Bicicleta bicicleta = cmbBicicleta.getValue();
+        Mecanico mecanico = cmbMecanico.getValue();
         String motivo = txtMotivo.getText();
         String diagnostico = txtDiagnostico.getText();
         Trabajo trabajoRealizado = cmbTrabajoRealizado.getValue();
+        if(bicicleta != null && mecanico != null){
+            servicioActual = tallerController.crearServicio(id, fecha, bicicleta.getNumeroSerial(), mecanico.getId(), motivo, diagnostico, trabajoRealizado);
 
-        servicioActual = tallerController.crearServicio(id, fecha, idBicicleta, idMecanico, motivo, diagnostico, trabajoRealizado);
-
-        if(servicioActual != null) {
-            lblMensaje.setText("Servicio creado, ahora agrega los repuestos usados");
-            actualizarTabla();
+            if(servicioActual != null) {
+                lblMensaje.setText("Servicio creado, ahora agrega los repuestos usados");
+                actualizarTabla();
+            } else {
+                lblMensaje.setText("Bicicleta o mecánico no encontrado");
+            }
         } else {
-            lblMensaje.setText("Bicicleta o mecánico no encontrado");
+            lblMensaje.setText("Error: Seleccione una bicicleta y un mecánico de la lista");
         }
     }
 

@@ -41,6 +41,7 @@ public class BicicletaViewController {
         colAno.setCellValueFactory(new PropertyValueFactory<>("ano"));
         colPropietario.setCellValueFactory(new PropertyValueFactory<>("propietario"));
         tblBicicletas.setItems(listaBicicletas);
+        actualizarTabla();
     }
 
     @FXML
@@ -59,14 +60,16 @@ public class BicicletaViewController {
 
     @FXML
     void onEliminar() {
-        String serial = txtSerial.getText();
-        boolean eliminado = tallerController.eliminarBicicleta(serial);
-
-        if(eliminado) {
+        Bicicleta seleccionada = tblBicicletas.getSelectionModel().getSelectedItem();
+        if(seleccionada != null) {
+            tallerController.eliminarBicicleta(seleccionada.getNumeroSerial());
             lblMensaje.setText("Bicicleta eliminada correctamente");
             actualizarTabla();
         } else {
-            lblMensaje.setText("Bicicleta no encontrada");
+            String serial = txtSerial.getText();
+            boolean eliminado = tallerController.eliminarBicicleta(serial);
+            lblMensaje.setText(eliminado ? "Bicicleta eliminada" : "Bicicleta no encontrada");
+            actualizarTabla();
         }
     }
 

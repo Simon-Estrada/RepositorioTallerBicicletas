@@ -36,6 +36,7 @@ public class ClienteViewController {
         colTelefono.setCellValueFactory(new PropertyValueFactory<>("telefono"));
         colDireccion.setCellValueFactory(new PropertyValueFactory<>("direccion"));
         tblClientes.setItems(listaClientes);
+        actualizarTabla();
     }
 
     @FXML
@@ -45,7 +46,7 @@ public class ClienteViewController {
         String telefono = txtTelefono.getText();
         String direccion = txtDireccion.getText();
 
-        tallerController.agregarCliente(id, nombre, telefono, direccion);
+        tallerController.agregarCliente(nombre,id, telefono, direccion);
         lblMensaje.setText("Cliente agregado correctamente");
         actualizarTabla();
     }
@@ -67,14 +68,18 @@ public class ClienteViewController {
 
     @FXML
     void onEliminar() {
-        String id = txtId.getText();
-        boolean eliminado = tallerController.eliminarCliente(id);
-
-        if(eliminado) {
-            lblMensaje.setText("Cliente eliminado correctamente");
-            actualizarTabla();
+        Cliente clienteSeleccionado = tblClientes.getSelectionModel().getSelectedItem();
+        if(clienteSeleccionado != null) {
+            boolean eliminado = tallerController.eliminarCliente(clienteSeleccionado.getId());
+            if(eliminado) {
+                lblMensaje.setText("Cliente eliminado correctamente");
+                actualizarTabla();
+            }
         } else {
-            lblMensaje.setText("Cliente no encontrado");
+            String id = txtId.getText();
+            boolean eliminado = tallerController.eliminarCliente(id);
+            lblMensaje.setText(eliminado ? "Cliente eliminado" : "Cliente no encontrado");
+            actualizarTabla();
         }
     }
 

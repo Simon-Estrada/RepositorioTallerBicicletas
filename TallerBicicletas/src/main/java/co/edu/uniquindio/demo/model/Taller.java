@@ -28,7 +28,12 @@ public class Taller {
         this.mecanicos = new ArrayList<>();
         this.proveedores = new ArrayList<>();
         this.repuestos = new ArrayList<>();
-
+        cargarDatosDeInicio();
+    }
+    private void cargarDatosDeInicio(){
+        mecanicos.add(new Mecanico("Simon Lopez Estrada",
+                "1090275087",
+                "3207411485", Especialidad.AjusteCompleto));
     }
 
     public static Taller getInstancia() {

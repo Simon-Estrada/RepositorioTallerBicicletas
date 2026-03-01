@@ -12,6 +12,9 @@ public class Mecanico extends Persona{
     public Especialidad getEspecialidad() {
         return especialidad;
     }
-
+    @Override
+    public String toString() {
+        return getNombreCompleto();
+    }
 
 }
