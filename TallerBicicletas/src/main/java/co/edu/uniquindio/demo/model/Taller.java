@@ -149,6 +149,13 @@ public class Taller {
         }
         return null;
     }
+    public Bicicleta buscarBicicleta(String numeroSerial){
+        for(Bicicleta bicicleta : bicicletas){
+            if(bicicleta.getNumeroSerial().equals(numeroSerial));
+            return bicicleta;
+        }
+        return null;
+    }
     public void crearServicio(Servicio servicio){
         servicio.add(servicio);
     }

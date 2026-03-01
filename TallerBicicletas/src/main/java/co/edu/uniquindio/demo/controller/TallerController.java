@@ -113,7 +113,7 @@ public class TallerController {
     }
 
 
-    public Bicicleta getBicicletas() {
+    public List<Bicicleta> getBicicletas() {
         return taller.getBicicletas();
     }
 }
